@@ -1,0 +1,33 @@
+name: Update EXEC.md
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    # MANUALLY TRIGGERED
+
+jobs:
+  update-exec-md:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write 
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Update EXEC.md
+      run: |
+        echo "## Execution ${{ github.run_id }}" > EXEC.md
+        echo "- Actor  : ${{ github.actor }}" >> EXEC.md
+        echo "- Time   : $(date '+%Y-%m-%d %H:%M:%S')" >> EXEC.md
+        echo "- Repo   : ${{ github.repository }}" >> EXEC.md
+        echo "- Event  : ${{ github.event_name }}" >> EXEC.md
+        
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "CI: Update EXEC.md"
+        file_pattern: EXEC.md
