@@ -20,7 +20,7 @@ jobs:
       
     - name: Update EXEC.md
       run: |
-        echo "## Execution ${{ github.run_id }}" > EXEC.md
+        echo "## Execution ${{ github.run_id }}" >> EXEC.md
         echo "- Actor  : ${{ github.actor }}" >> EXEC.md
         echo "- Time   : $(date '+%Y-%m-%d %H:%M:%S')" >> EXEC.md
         echo "- Repo   : ${{ github.repository }}" >> EXEC.md
